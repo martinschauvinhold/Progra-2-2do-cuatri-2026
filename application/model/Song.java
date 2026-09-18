@@ -1,3 +1,7 @@
+package model;
+
+import exceptions.InvalidPlaylistOperationException;
+
 public class Song {
 
     private final String title;

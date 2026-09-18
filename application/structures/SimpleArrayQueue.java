@@ -1,3 +1,5 @@
+package structures;
+
 import java.util.NoSuchElementException;
 
 public class SimpleArrayQueue<E> implements SimpleQueue<E> {
@@ -53,7 +55,7 @@ public class SimpleArrayQueue<E> implements SimpleQueue<E> {
     }
 
     @Override
-    public boolean isEmpty() {4
+    public boolean isEmpty() {
         return size == 0;
     }
 

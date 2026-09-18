@@ -1,3 +1,8 @@
+package exercises;
+
+import structures.SimpleArrayStack;
+import structures.SimpleStack;
+
 import java.util.Scanner;
 
 public class NavegadorWebExercise extends Exercise {
@@ -9,10 +14,10 @@ public class NavegadorWebExercise extends Exercise {
 
     public NavegadorWebExercise(Scanner scanner) {
         super(scanner); 
-        precargarDatos(); // Inicializa la base de datos de testeo al instanciar[cite: 1]
+        precargarDatos(); // Inicializa la base de datos de testeo al instanciar
     }
 
-    // Método que simula una sesión de navegación previa[cite: 1]
+    // Método que simula una sesión de navegación previa
     private void precargarDatos() {
         // Historial hacia atrás (el tope es la última página visitada antes de la actual)
         backStack.push("www.google.com");
@@ -42,7 +47,6 @@ public class NavegadorWebExercise extends Exercise {
 
         String input = scanner.nextLine().trim();
 
-        // Control estructurado sin break
         if (input.equals("1")) {
             irNuevaPagina();
         } else if (input.equals("2")) {

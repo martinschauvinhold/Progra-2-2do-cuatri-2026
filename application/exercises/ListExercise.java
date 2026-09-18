@@ -1,3 +1,5 @@
+package exercises;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -36,7 +38,7 @@ public class ListExercise extends Exercise {
     {
         if(firstTime)
         {
-            System.out.println("\nBienvenido al ListExercise!");
+            System.out.println("\nBienvenido al exercises.ListExercise!");
             firstTime = false;
         }
         else

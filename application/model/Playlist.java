@@ -1,3 +1,8 @@
+package model;
+
+import exceptions.InvalidPlaylistOperationException;
+import structures.SimpleArrayList;
+
 import java.util.Random;
 
 public class Playlist {

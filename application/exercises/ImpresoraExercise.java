@@ -1,3 +1,9 @@
+package exercises;
+
+import model.Documento;
+import structures.SimpleArrayQueue;
+import structures.SimpleQueue;
+
 import java.util.Scanner;
 
 public class ImpresoraExercise extends Exercise {
@@ -41,7 +47,6 @@ public class ImpresoraExercise extends Exercise {
 
         String input = scanner.nextLine().trim();
 
-        // Flujo estructurado sin break
         if (input.equals("1")) {
             crearDocumento();
         } else if (input.equals("2")) {
@@ -85,10 +90,10 @@ public class ImpresoraExercise extends Exercise {
                 
                 if (colorStr.equals("s")) {
                     colaColor.enqueue(new Documento(nombre, paginas, true));
-                    System.out.println("\n[+] Documento a color enviado a la cola.");
+                    System.out.println("\n[+] model.Documento a color enviado a la cola.");
                 } else if (colorStr.equals("n")) {
                     colaBlancoNegro.enqueue(new Documento(nombre, paginas, false));
-                    System.out.println("\n[+] Documento B/N enviado a la cola.");
+                    System.out.println("\n[+] model.Documento B/N enviado a la cola.");
                 } else {
                     System.out.println("\n[!] Error: Respuesta inválida. Debes ingresar 's' o 'n'.");
                 }
@@ -127,7 +132,7 @@ public class ImpresoraExercise extends Exercise {
         System.out.println("\nProcesando: " + doc.getNombre() + " (" + tipo + ")");
         
         int paginaActual = 1;
-        // Se deben mostrar en orden las páginas de todos los documentos[cite: 5]
+        // Se deben mostrar en orden las páginas de todos los documentos
         while (paginaActual <= doc.getPaginas()) {
             System.out.println(" -> Imprimiendo página " + paginaActual + " de " + doc.getPaginas());
             paginaActual++;
@@ -135,7 +140,7 @@ public class ImpresoraExercise extends Exercise {
     }
 
     private void cancelarCola() {
-        colaBlancoNegro.clear(); // Opcion para cancelar la cola entera[cite: 5]
+        colaBlancoNegro.clear(); // Opcion para cancelar la cola entera
         colaColor.clear();
         System.out.println("\n[!] Se ha cancelado la impresión y vaciado la cola.");
     }

@@ -1,3 +1,9 @@
+package exercises;
+
+import exceptions.InvalidPlaylistOperationException;
+import model.Playlist;
+import model.Song;
+
 import java.util.Scanner;
 
 public class PlaylistExercise extends Exercise {
@@ -11,7 +17,7 @@ public class PlaylistExercise extends Exercise {
     @Override
     protected void exerciseLogic() {
         if (firstTime) {
-            System.out.println("\nBienvenido a la Playlist Musical.");
+            System.out.println("\nBienvenido a la model.Playlist Musical.");
             firstTime = false;
         }
 
@@ -60,7 +66,7 @@ public class PlaylistExercise extends Exercise {
     }
 
     private void showStatus() {
-        System.out.println("\n=== Playlist ===");
+        System.out.println("\n=== model.Playlist ===");
         System.out.println(playlist.printPlaylist());
 
         if (playlist.isEmpty()) {

@@ -1,3 +1,5 @@
+package structures;
+
 import java.util.NoSuchElementException;
 
 public class SimpleArrayStack<E> implements SimpleStack<E> {
@@ -11,7 +13,7 @@ public class SimpleArrayStack<E> implements SimpleStack<E> {
 
     @Override
     public void push(E element) {
-        // Genera excepción si se excede la capacidad de la pila[cite: 1]
+        // Genera excepción si se excede la capacidad de la pila
         if (top == array.length - 1) {
             throw new IllegalStateException("La pila está llena.");
         }
@@ -22,7 +24,7 @@ public class SimpleArrayStack<E> implements SimpleStack<E> {
     @SuppressWarnings("unchecked")
     @Override
     public E pop() {
-        // Las implementaciones del TDA en sí deben generar excepciones si reciben comandos o datos inválidos[cite: 1]
+        // Las implementaciones del TDA en sí deben generar excepciones si reciben comandos o datos inválidos
         if (isEmpty()) {
             throw new NoSuchElementException("La pila está vacía. No se puede remover ningún elemento.");
         }

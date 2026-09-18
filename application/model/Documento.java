@@ -1,3 +1,5 @@
+package model;
+
 public class Documento {
     private String nombre;
     private int paginas;

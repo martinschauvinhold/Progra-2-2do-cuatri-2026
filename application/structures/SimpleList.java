@@ -1,3 +1,5 @@
+package structures;
+
 public interface SimpleList <E>{
 
     public boolean add(E element);

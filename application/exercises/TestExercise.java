@@ -1,3 +1,5 @@
+package exercises;
+
 import java.util.Scanner;
 
 public class TestExercise extends Exercise {
@@ -10,11 +12,11 @@ public class TestExercise extends Exercise {
 
 	// run es heredada, no la vemos pero esta
 
-	// exerciseLogic era abstracta en Exercise
+	// exerciseLogic era abstracta en exercises.Exercise
 	// Ahora tenemos que completar con algo
 	@Override
 	protected void exerciseLogic() {
-		System.out.println("Bienvenido al Test Exercise"
+		System.out.println("Bienvenido al Test exercises.Exercise"
 				+ "\n Volver al menu? s/n");
 
 		// Scanner.nextLine lee lo que escribe el usuario

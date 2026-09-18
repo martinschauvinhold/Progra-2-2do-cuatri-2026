@@ -1,3 +1,5 @@
+package structures;
+
 public interface SimpleStack<E> {
     void push(E element);
     E pop();

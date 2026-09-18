@@ -1,3 +1,5 @@
+package structures;
+
 public class SimpleArrayList<E> implements SimpleList<E> {
 
     public static final int DEFAULT_CAPACITY = 4;

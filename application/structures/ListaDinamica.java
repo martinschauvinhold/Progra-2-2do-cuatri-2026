@@ -1,3 +1,5 @@
+package structures;
+
 public class ListaDinamica<T> {
     
     private Nodo<T> cabeza;
