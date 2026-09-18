@@ -2,25 +2,20 @@ import java.util.NoSuchElementException;
 
 public class SimpleArrayQueue<E> implements SimpleQueue<E> {
     private Object[] array;
-    private int front;
-    private int rear;
-    private int count;
+    private int size;
 
     public SimpleArrayQueue(int capacity) {
         this.array = new Object[capacity];
-        this.front = 0;
-        this.rear = -1;
-        this.count = 0;
+        this.size = 0;
     }
 
     @Override
     public void enqueue(E element) {
-        if (count == array.length) {
+        if (size == array.length) {
             throw new IllegalStateException("La cola está llena.");
         }
-        rear = (rear + 1) % array.length;
-        array[rear] = element;
-        count++;
+        array[size] = element;
+        size++;
     }
 
     @SuppressWarnings("unchecked")
@@ -29,10 +24,9 @@ public class SimpleArrayQueue<E> implements SimpleQueue<E> {
         if (isEmpty()) {
             throw new NoSuchElementException("La cola está vacía. No se puede remover ningún elemento.");
         }
-        E element = (E) array[front];
-        array[front] = null; 
-        front = (front + 1) % array.length;
-        count--;
+        E element = (E) array[0];
+        shiftLeft();
+        size--;
         return element;
     }
 
@@ -42,26 +36,33 @@ public class SimpleArrayQueue<E> implements SimpleQueue<E> {
         if (isEmpty()) {
             throw new NoSuchElementException("La cola está vacía.");
         }
-        return (E) array[front];
+        return (E) array[0];
     }
 
     @Override
     public void clear() {
-        for (int i = 0; i < array.length; i++) {
+        for (int i = 0; i < size; i++) {
             array[i] = null;
         }
-        front = 0;
-        rear = -1;
-        count = 0;
+        size = 0;
     }
 
     @Override
     public int size() {
-        return count;
+        return size;
     }
 
     @Override
-    public boolean isEmpty() {
-        return count == 0;
+    public boolean isEmpty() {4
+        return size == 0;
+    }
+
+    // El primer elemento siempre queda en el índice 0.
+    // Al remover, corremos todo un lugar a la izquierda.
+    private void shiftLeft() {
+        for (int i = 0; i < size - 1; i++) {
+            array[i] = array[i + 1];
+        }
+        array[size - 1] = null;
     }
 }
