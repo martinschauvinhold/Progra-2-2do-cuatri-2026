@@ -30,10 +30,12 @@ public class MainProgram {
                 + "\n2: Playlist musical"
                 + "\n3: Navegador Web (TP 04)"
                 + "\n4: Impresora (TP 05)"
-                + "\n5: Salir");
+                + "\n5: Personajes de Videojuegos (TP 06)"
+                + "\n6: Salir");
 
         String userInput = scanner.nextLine();
 
+        // Cadena estructurada if-else if pura para evitar el uso de break
         if (userInput.equals("0")) {
             exercise = new TestExercise(scanner);
         } else if (userInput.equals("1")) {
@@ -45,8 +47,10 @@ public class MainProgram {
         } else if (userInput.equals("4")) {
             exercise = new ImpresoraExercise(scanner);
         } else if (userInput.equals("5")) {
-            running = false;
-            exercise = null;
+            exercise = new PersonajesExercise(scanner); // Tu nuevo TP 06
+        } else if (userInput.equals("6")) {
+            running = false; // Termina el bucle principal de forma limpia
+            exercise = null; // Evita que se vuelva a ejecutar el último ejercicio en memoria
         } else {
             System.out.println("\nRespuesta invalida");
             exercise = null;
