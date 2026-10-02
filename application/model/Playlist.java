@@ -12,11 +12,6 @@ public class Playlist {
     private PlaybackMode playbackMode = PlaybackMode.ORDER;
     private boolean loopAfterLast = false;
 
-    public enum PlaybackMode {
-        ORDER,
-        RANDOM
-    }
-
     public void addSong(String title) {
         if (title == null || title.trim().isEmpty()) {
             throw new InvalidPlaylistOperationException("El nombre de la canción no puede estar vacío.");

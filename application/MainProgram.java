@@ -25,9 +25,9 @@ public class MainProgram {
 
     private void selectExercise(Scanner scanner) {
         System.out.println("\nSelecciona un ejercicio:"
-                + "\n0: exercises.TestExercise"
-                + "\n1: exercises.ListExercise"
-                + "\n2: model.Playlist musical"
+                + "\n0: TestExercise"
+                + "\n1: ListExercise"
+                + "\n2: Playlist musical"
                 + "\n3: Navegador Web (TP 04)"
                 + "\n4: Impresora (TP 05)"
                 + "\n5: Salir");

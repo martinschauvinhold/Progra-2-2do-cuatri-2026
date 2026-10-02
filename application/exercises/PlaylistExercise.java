@@ -1,6 +1,7 @@
 package exercises;
 
 import exceptions.InvalidPlaylistOperationException;
+import model.PlaybackMode;
 import model.Playlist;
 import model.Song;
 
@@ -17,14 +18,14 @@ public class PlaylistExercise extends Exercise {
     @Override
     protected void exerciseLogic() {
         if (firstTime) {
-            System.out.println("\nBienvenido a la model.Playlist Musical.");
+            System.out.println("\nBienvenido a la Playlist Musical.");
             firstTime = false;
         }
 
         showStatus();
         showMenu();
 
-        String option = readLine("Opción: ").trim().toLowerCase();
+        String option = readLine("Opción: ").trim();
 
         try {
             switch (option) {
@@ -66,14 +67,11 @@ public class PlaylistExercise extends Exercise {
     }
 
     private void showStatus() {
-        System.out.println("\n=== model.Playlist ===");
+        System.out.println("\n=== Playlist ===");
         System.out.println(playlist.printPlaylist());
 
-        if (playlist.isEmpty()) {
-            System.out.println("Canción actual: Ninguna");
-        } else {
-            System.out.println("Canción actual: " + playlist.getCurrentSongName());
-        }
+        String currentSong = playlist.isEmpty() ? "Ninguna" : playlist.getCurrentSongName();
+        System.out.println("Canción actual: " + currentSong);
 
         System.out.println("Modo: " + playlist.getPlaybackMode());
         System.out.println("Loop al final: " + (playlist.isLoopAfterLast() ? "Activado" : "Desactivado"));
@@ -94,7 +92,7 @@ public class PlaylistExercise extends Exercise {
     }
 
     private void addSongFlow() {
-        String title = readNonEmptyText("Ingrese el nombre de la canción:");
+        String title = readNonEmptyText("Ingrese el nombre de la canción: ");
         playlist.addSong(title);
         System.out.println("Canción agregada correctamente.");
     }
@@ -109,20 +107,20 @@ public class PlaylistExercise extends Exercise {
         System.out.println("2. Remover por número");
         String choice = readLine("Opción: ").trim();
 
-        try {
-            if ("1".equals(choice)) {
-                String title = readNonEmptyText("Ingrese el nombre de la canción a remover:");
+        switch (choice) {
+            case "1":
+                String title = readNonEmptyText("Ingrese el nombre de la canción a remover: ");
                 playlist.removeSongByName(title);
                 System.out.println("Canción removida.");
-            } else if ("2".equals(choice)) {
-                int index = readPositiveInt("Ingrese el número de la canción:");
+                break;
+            case "2":
+                int index = readPositiveInt("Ingrese el número de la canción: ");
                 playlist.removeSongByIndex(index - 1);
                 System.out.println("Canción removida.");
-            } else {
+                break;
+            default:
                 System.out.println("Opción inválida.");
-            }
-        } catch (InvalidPlaylistOperationException e) {
-            throw e;
+                break;
         }
     }
 
@@ -131,7 +129,6 @@ public class PlaylistExercise extends Exercise {
             System.out.println("No hay canciones en la playlist.");
             return;
         }
-
         System.out.println("Reproduciendo: " + playlist.play().getTitle());
     }
 
@@ -145,7 +142,6 @@ public class PlaylistExercise extends Exercise {
             System.out.println("No hay canciones para retroceder.");
             return;
         }
-
         System.out.println("Anterior: " + playlist.previous().getTitle());
     }
 
@@ -155,13 +151,11 @@ public class PlaylistExercise extends Exercise {
             return;
         }
 
-        if (playlist.isPlaying() || playlist.size() > 0) {
-            Song nextSong = playlist.next();
-            if (nextSong == null) {
-                System.out.println("No hay más canciones y la reproducción se detuvo.");
-            } else {
-                System.out.println("Siguiente: " + nextSong.getTitle());
-            }
+        Song nextSong = playlist.next();
+        if (nextSong == null) {
+            System.out.println("No hay más canciones y la reproducción se detuvo.");
+        } else {
+            System.out.println("Siguiente: " + nextSong.getTitle());
         }
     }
 
@@ -170,14 +164,18 @@ public class PlaylistExercise extends Exercise {
         System.out.println("2. Aleatorio");
         String choice = readLine("Modo: ").trim();
 
-        if ("1".equals(choice)) {
-            playlist.setPlaybackMode(Playlist.PlaybackMode.ORDER);
-            System.out.println("Modo cambiado a orden.");
-        } else if ("2".equals(choice)) {
-            playlist.setPlaybackMode(Playlist.PlaybackMode.RANDOM);
-            System.out.println("Modo cambiado a aleatorio.");
-        } else {
-            System.out.println("Opción inválida.");
+        switch (choice) {
+            case "1":
+                playlist.setPlaybackMode(PlaybackMode.ORDER);
+                System.out.println("Modo cambiado a orden.");
+                break;
+            case "2":
+                playlist.setPlaybackMode(PlaybackMode.RANDOM);
+                System.out.println("Modo cambiado a aleatorio.");
+                break;
+            default:
+                System.out.println("Opción inválida.");
+                break;
         }
     }
 
@@ -185,6 +183,8 @@ public class PlaylistExercise extends Exercise {
         playlist.setLoopAfterLast(!playlist.isLoopAfterLast());
         System.out.println("Loop al final: " + (playlist.isLoopAfterLast() ? "Activado" : "Desactivado"));
     }
+
+    // --- Métodos Auxiliares ---
 
     private String readNonEmptyText(String prompt) {
         String value;
@@ -194,7 +194,6 @@ public class PlaylistExercise extends Exercise {
                 System.out.println("No puedes dejar este campo vacío.");
             }
         } while (value.isEmpty());
-
         return value;
     }
 
