@@ -108,7 +108,7 @@ public class SimpleArrayList<E> implements SimpleList<E> {
     @Override
     public int indexOf(Object o) {
         for (int i = 0; i < size; i++) {
-            if (elements.equals(o)) {
+            if (elements[i].equals(o)) {
                 return i;
             }
         }
