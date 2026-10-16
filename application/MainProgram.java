@@ -32,7 +32,8 @@ public class MainProgram {
                 + "\n4: Impresora (TP 05)"
                 + "\n5: Personajes de Videojuegos (TP 06)"
                 + "\n6: Atención al cliente"
-                + "\n7: Salir");
+                + "\n7: Sistema de Login"
+                + "\n8: Salir");
 
         String userInput = scanner.nextLine();
 
@@ -51,6 +52,8 @@ public class MainProgram {
         } else if (userInput.equals("6")) {
             exercise = new CustomerSupportExercise(scanner);
         } else if (userInput.equals("7")) {
+            exercise = new LoginSystemExercise(scanner);
+        } else if (userInput.equals("8")) {
             running = false;
             exercise = null;
         } else {
