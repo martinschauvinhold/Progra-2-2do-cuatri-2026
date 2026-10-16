@@ -17,8 +17,14 @@ public class SimpleArrayPriorityQueue <E> implements SimplePriorityQueue<E> {
     @Override
     public void enqueue(E element, int priority) {
         validateSize(size + 1);
-        elements[size] = element;
-        priorities[size] = priority;
+        int insertIndex = size;
+        for (int i = size; i > 0 && priority < priorities[i - 1]; i--) {
+            insertIndex = i - 1;
+            elements[i] = elements[i - 1];
+            priorities[i] = priorities[i - 1];
+        }
+        elements[insertIndex] = element;
+        priorities[insertIndex] = priority;
         size++;
     }
 
@@ -30,23 +36,15 @@ public class SimpleArrayPriorityQueue <E> implements SimplePriorityQueue<E> {
         return priorities[0];
     }
 
-    @Override
-    public void enqueue(E element) {
-        if (size == array.length) {
-            throw new IllegalStateException("La cola está llena.");
-        }
-        array[size] = element;
-        size++;
-    }
 
     @SuppressWarnings("unchecked")
     @Override
     public E dequeue() {
         if (isEmpty()) {
-            throw new NoSuchElementException("La cola está vacía. No se puede remover ningún elemento.");
+            throw new NoSuchElementException("Queue is empty.");
         }
-        E element = (E) array[0];
-        shiftLeft();
+        E element = (E) elements[0];
+        shiftLeft(0);
         size--;
         return element;
     }
@@ -91,11 +89,19 @@ public class SimpleArrayPriorityQueue <E> implements SimplePriorityQueue<E> {
 
     // El primer elemento siempre queda en el índice 0.
     // Al remover, corremos todo un lugar a la izquierda.
-    private void shiftLeft() {
-        for (int i = 0; i < size - 1; i++) {
+    private void shiftLeft(int index) {
+        for (int i = index; i < size - 1; i++) {
             elements[i] = elements[i + 1];
             priorities[i] = priorities[i + 1];
         }
         elements[size - 1] = null;
+        priorities[size - 1] = 0;
     }
+
+    private void validateSize(int newSize) {
+        if (newSize > elements.length) {
+            resize();
+        }
+    }
+
 }

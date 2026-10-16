@@ -1,7 +1,7 @@
 package structures;
 
 public class SimpleArraySet<E> implements SimpleSet<E> {
-    private static final int DEFAULT_CAPACITY = 50;
+    private static final int DEFAULT_CAPACITY = 4;
     private E[] array;
     private int size = 0;
 

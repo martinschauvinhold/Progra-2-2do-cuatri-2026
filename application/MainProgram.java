@@ -12,14 +12,14 @@ public class MainProgram {
 
     private void run() {
         Scanner scanner = new Scanner(System.in);
-        
+
         while (running) {
             selectExercise(scanner);
             if (exercise != null) {
                 exercise.run();
             }
         }
-        
+
         scanner.close();
     }
 
@@ -31,11 +31,11 @@ public class MainProgram {
                 + "\n3: Navegador Web (TP 04)"
                 + "\n4: Impresora (TP 05)"
                 + "\n5: Personajes de Videojuegos (TP 06)"
-                + "\n6: Salir");
+                + "\n6: Atención al cliente"
+                + "\n7: Salir");
 
         String userInput = scanner.nextLine();
 
-        // Cadena estructurada if-else if pura para evitar el uso de break
         if (userInput.equals("0")) {
             exercise = new TestExercise(scanner);
         } else if (userInput.equals("1")) {
@@ -47,10 +47,12 @@ public class MainProgram {
         } else if (userInput.equals("4")) {
             exercise = new ImpresoraExercise(scanner);
         } else if (userInput.equals("5")) {
-            exercise = new PersonajesExercise(scanner); // Tu nuevo TP 06
+            exercise = new PersonajesExercise(scanner);
         } else if (userInput.equals("6")) {
-            running = false; // Termina el bucle principal de forma limpia
-            exercise = null; // Evita que se vuelva a ejecutar el último ejercicio en memoria
+            exercise = new CustomerSupportExercise(scanner);
+        } else if (userInput.equals("7")) {
+            running = false;
+            exercise = null;
         } else {
             System.out.println("\nRespuesta invalida");
             exercise = null;

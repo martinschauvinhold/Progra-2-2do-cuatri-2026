@@ -126,7 +126,7 @@ public class PersonajesExercise extends Exercise {
             
             // La aplicación debe manejar inputs para evitar que el TDA lance excepciones no capturadas
             if (p.getHabilidades().contains(habilidad)) {
-                p.getHabilidades().remove(habilidad); // Se deben poder quitar habilidades[cite: 13]
+                p.getHabilidades().remove(habilidad); // Se deben poder quitar habilidades
                 System.out.println("\n[-] Habilidad '" + habilidad + "' removida de " + p.getNombre() + ".");
             } else {
                 System.out.println("\n[!] Error: " + p.getNombre() + " no posee esa habilidad.");
@@ -146,17 +146,17 @@ public class PersonajesExercise extends Exercise {
         if (p1 != null && p2 != null) {
             System.out.println("\n=== COMPARACIÓN: " + p1.getNombre() + " vs " + p2.getNombre() + " ===");
             
-            // Habilidades en común (Intersección)[cite: 13]
+            // Habilidades en común (Intersección)
             SimpleSet<String> comunes = p1.getHabilidades().intersectWith(p2.getHabilidades());
             System.out.println("\n> Habilidades en común:");
             imprimirSet(comunes);
 
-            // Habilidades únicas del P1 (Diferencia)[cite: 13]
+            // Habilidades únicas del P1 (Diferencia)
             SimpleSet<String> unicasP1 = p1.getHabilidades().differenceWith(p2.getHabilidades());
             System.out.println("\n> Habilidades exclusivas de " + p1.getNombre() + ":");
             imprimirSet(unicasP1);
 
-            // Habilidades únicas del P2 (Diferencia)[cite: 13]
+            // Habilidades únicas del P2 (Diferencia)
             SimpleSet<String> unicasP2 = p2.getHabilidades().differenceWith(p1.getHabilidades());
             System.out.println("\n> Habilidades exclusivas de " + p2.getNombre() + ":");
             imprimirSet(unicasP2);
