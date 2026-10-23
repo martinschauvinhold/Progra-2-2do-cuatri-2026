@@ -53,6 +53,8 @@ public class BST<E extends Comparable<E>> implements SimpleTree<E> {
         int comparison = value.compareTo(current.value);
 
         if (comparison == 0) {
+            // Correccion: el count-- no va aca arriba (antes de los casos), porque en el
+            // Caso 3 se descontaria dos veces. Ahora esta dentro de los casos 1 y 2.
             // Caso 1: hoja (no tiene hijos)
             if (current.left == null && current.right == null) {
                 count--;
@@ -68,6 +70,7 @@ public class BST<E extends Comparable<E>> implements SimpleTree<E> {
             }
             // Caso 3: tiene los dos hijos
             else {
+                // Sin count-- aca: lo hace la llamada que borra al sucesor (siempre cae en caso 1 o 2)
                 TreeNode<E> successor = getMinChild(current.right);
                 current.value = successor.value;
                 current.right = removeRecursive(current.right, successor.value);
