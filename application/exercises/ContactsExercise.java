@@ -3,12 +3,11 @@ package exercises;
 import model.Contact;
 import structures.BST;
 import structures.SimpleList;
-import structures.SimpleTree;
 
 import java.util.Scanner;
 
 public class ContactsExercise extends Exercise {
-    private final SimpleTree<Contact> contacts = new BST<>();
+    private final BST<Contact> contacts = new BST<>();
 
     public ContactsExercise(Scanner scanner) {
         super(scanner);

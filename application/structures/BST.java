@@ -2,11 +2,10 @@ package structures;
 
 import java.util.NoSuchElementException;
 
-public class BST<E extends Comparable<E>> implements SimpleTree<E> {
-    protected int count = 0;
-    protected TreeNode<E> root = null;
+public class BST<E extends Comparable<E>> {
+    private int count = 0;
+    private TreeNode<E> root = null;
 
-    @Override
     public void insert(E value) {
         if (value == null) {
             throw new IllegalArgumentException("No se puede insertar null.");
@@ -18,26 +17,23 @@ public class BST<E extends Comparable<E>> implements SimpleTree<E> {
         // Caso base: recibimos un espacio vacio
         // Devuelve el nodo que va a ocupar ese lugar
         if (current == null) {
-            count++;
+            this.count++;
             return new TreeNode<>(value);
         }
 
-        int comparison = value.compareTo(current.value);
+        int comparison = value.compareTo(current.getValue());
 
-        if (comparison == 0) {
-            throw new IllegalArgumentException("El valor ya existe en el arbol: " + value);
-        }
         if (comparison > 0) {
-            current.right = insertRecursive(current.right, value);
+            current.setRight(insertRecursive(current.getRight(), value));
         }
+
         if (comparison < 0) {
-            current.left = insertRecursive(current.left, value);
+            current.setLeft(insertRecursive(current.getLeft(), value));
         }
 
         return current;
     }
 
-    @Override
     public void remove(E value) {
         if (value == null) {
             throw new IllegalArgumentException("No se puede remover null.");
@@ -50,50 +46,45 @@ public class BST<E extends Comparable<E>> implements SimpleTree<E> {
             throw new NoSuchElementException("El valor no existe en el arbol: " + value);
         }
 
-        int comparison = value.compareTo(current.value);
+        int comparison = value.compareTo(current.getValue());
 
         if (comparison == 0) {
             // Correccion: el count-- no va aca arriba (antes de los casos), porque en el
             // Caso 3 se descontaria dos veces. Ahora esta dentro de los casos 1 y 2.
             // Caso 1: hoja (no tiene hijos)
-            if (current.left == null && current.right == null) {
+            if (current.getLeft() == null && current.getRight() == null) {
                 count--;
                 return null;
-            }
-            // Caso 2: solo tiene un hijo
-            else if (current.left == null) {
+            } else if (current.getLeft() != null && current.getRight() == null) {
                 count--;
-                return current.right;
-            } else if (current.right == null) {
+                return current.getLeft();
+            } else if (current.getLeft() == null && current.getRight() != null) {
                 count--;
-                return current.left;
-            }
-            // Caso 3: tiene los dos hijos
-            else {
-                // Sin count-- aca: lo hace la llamada que borra al sucesor (siempre cae en caso 1 o 2)
-                TreeNode<E> successor = getMinChild(current.right);
-                current.value = successor.value;
-                current.right = removeRecursive(current.right, successor.value);
+                return current.getRight();
+            } else {
+                // tiene los dos hijos
+                TreeNode<E> successor = getMinChild(current.getRight());
+                current.setValue(successor.getValue());
+                current.setRight(removeRecursive(current.getRight(), successor.getValue()));
             }
         }
         if (comparison > 0) {
-            current.right = removeRecursive(current.right, value);
+            current.setRight(removeRecursive(current.getRight(), value));
         }
         if (comparison < 0) {
-            current.left = removeRecursive(current.left, value);
+            current.setLeft(removeRecursive(current.getLeft(), value));
         }
 
         return current;
     }
 
     protected TreeNode<E> getMinChild(TreeNode<E> current) {
-        while (current.left != null) {
-            current = current.left;
+        while (current.getLeft() != null) {
+            current = current.getLeft();
         }
         return current;
     }
 
-    @Override
     public E get(E value) {
         if (value == null) {
             throw new IllegalArgumentException("No se puede buscar null.");
@@ -103,10 +94,9 @@ public class BST<E extends Comparable<E>> implements SimpleTree<E> {
         if (node == null) {
             throw new NoSuchElementException("El valor no existe en el arbol: " + value);
         }
-        return node.value;
+        return node.getValue();
     }
 
-    @Override
     public boolean contains(E value) {
         if (value == null) {
             throw new IllegalArgumentException("No se puede buscar null.");
@@ -117,15 +107,59 @@ public class BST<E extends Comparable<E>> implements SimpleTree<E> {
     protected TreeNode<E> findRecursive(TreeNode<E> current, E value) {
         if (current == null) return null;
 
-        int comparison = value.compareTo(current.value);
+        int comparison = value.compareTo(current.getValue());
 
-        if (comparison > 0) return findRecursive(current.right, value);
-        if (comparison < 0) return findRecursive(current.left, value);
+        if (comparison > 0) return findRecursive(current.getRight(), value);
+        if (comparison < 0) return findRecursive(current.getLeft(), value);
 
         return current;
     }
 
-    @Override
+    public void clear() {
+        root = null;
+        count = 0;
+    }
+
+    public int size() {
+        return count;
+    }
+
+    public boolean isEmpty() {
+        return count == 0;
+    }
+
+    protected int getNodeHeight(TreeNode<E> current) {
+        if (current == null) {
+            return -1;
+        }
+        int leftHeight = getNodeHeight(current.getLeft());
+        int rightHeight = getNodeHeight(current.getRight());
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+
+    protected int getNodeBalanceFactor(TreeNode<E> current) {
+        if (current == null) {
+            return 0;
+        }
+        int leftHeight = getNodeHeight(current.getLeft());
+        int rightHeight = getNodeHeight(current.getRight());
+        return leftHeight - rightHeight;
+    }
+
+    public SimpleList<E> preOrder() {
+        SimpleList<E> result = new SimpleArrayList<>();
+        preOrderRecursive(root, result);
+        return result;
+    }
+
+    protected void preOrderRecursive(TreeNode<E> current, SimpleList<E> result) {
+        if (current == null) return;
+
+        result.add(current.getValue());          // 1) procesar nodo actual
+        preOrderRecursive(current.getLeft(), result);   // 2) izquierdo
+        preOrderRecursive(current.getRight(), result);  // 3) derecho
+    }
+
     public SimpleList<E> inOrder() {
         SimpleList<E> result = new SimpleArrayList<>();
         inOrderRecursive(root, result);
@@ -135,24 +169,47 @@ public class BST<E extends Comparable<E>> implements SimpleTree<E> {
     protected void inOrderRecursive(TreeNode<E> current, SimpleList<E> result) {
         if (current == null) return;
 
-        inOrderRecursive(current.left, result);
-        result.add(current.value);
-        inOrderRecursive(current.right, result);
+        inOrderRecursive(current.getLeft(), result);   // hijo izquierdo
+        result.add(current.getValue());              // nodo actual
+        inOrderRecursive(current.getRight(), result); // hijo derecho
     }
 
-    @Override
-    public void clear() {
-        root = null;
-        count = 0;
+    public SimpleList<E> postOrder() {
+        SimpleList<E> result = new SimpleArrayList<>();
+        postOrderRecursive(root, result);
+        return result;
     }
 
-    @Override
-    public int size() {
-        return count;
+    protected void postOrderRecursive(TreeNode<E> current, SimpleList<E> result) {
+        if (current == null) return;
+
+        postOrderRecursive(current.getLeft(), result);    // hijo izquierdo
+        postOrderRecursive(current.getRight(), result);   // hijo derecho
+        result.add(current.getValue());                   // nodo actual
     }
 
-    @Override
-    public boolean isEmpty() {
-        return count == 0;
+    public SimpleList<E> levelOrder() {
+        SimpleList<E> result = new SimpleArrayList<>();
+        if (root == null) {
+            return result;
+        }
+
+        SimpleArrayQueue<TreeNode<E>> queue = new SimpleArrayQueue<>(Math.max(1, count));
+        queue.enqueue(root);
+
+        while (!queue.isEmpty()) {
+            TreeNode<E> current = queue.dequeue();
+            result.add(current.getValue());
+
+            if (current.getLeft() != null) {
+                queue.enqueue(current.getLeft());
+            }
+            if (current.getRight() != null) {
+                queue.enqueue(current.getRight());
+            }
+        }
+
+        return result;
     }
+
 }

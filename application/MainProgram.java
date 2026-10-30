@@ -34,7 +34,8 @@ public class MainProgram {
                 + "\n6: Atención al cliente"
                 + "\n7: Sistema de Login"
                 + "\n8: Agenda de contactos (TP 09)"
-                + "\n9: Salir");
+                + "\n9: Agenda de contactos (AVL)"
+                + "\n10: Salir");
 
         String userInput = scanner.nextLine();
 
@@ -57,6 +58,8 @@ public class MainProgram {
         } else if (userInput.equals("8")) {
             exercise = new ContactsExercise(scanner);
         } else if (userInput.equals("9")) {
+            exercise = new ContactsAVLExercise(scanner);
+        } else if (userInput.equals("10")) {
             running = false;
             exercise = null;
         } else {
