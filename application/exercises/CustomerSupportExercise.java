@@ -17,6 +17,7 @@ public class CustomerSupportExercise extends Exercise {
         precargarDatos();
     }
 
+    // Cola precargada para no arrancar vacía
     private void precargarDatos() {
         queue.enqueue(new Claim("Pago duplicado", "Se cobraron dos veces por el mismo servicio.", UrgencyLevel.CRITICO),
                 UrgencyLevel.CRITICO.getPriority());
@@ -112,6 +113,7 @@ public class CustomerSupportExercise extends Exercise {
 
             Claim resolved = orderedClaims.remove(selectedIndex);
 
+            // Reconstruimos la cola sin el reclamo resuelto
             queue.clear();
             for (Claim claim : orderedClaims) {
                 queue.enqueue(claim, claim.getUrgency().getPriority());
@@ -128,12 +130,14 @@ public class CustomerSupportExercise extends Exercise {
         List<Claim> orderedClaims = new ArrayList<>();
         SimpleArrayPriorityQueue<Claim> tempQueue = new SimpleArrayPriorityQueue<>();
 
+        // Vaciamos la cola real a una lista y a una cola espejo con el mismo orden
         while (!queue.isEmpty()) {
             Claim claim = queue.dequeue();
             orderedClaims.add(claim);
             tempQueue.enqueue(claim, claim.getUrgency().getPriority());
         }
 
+        // Recargamos la cola real desde la espejo, para dejarla como estaba
         while (!tempQueue.isEmpty()) {
             Claim claim = tempQueue.dequeue();
             queue.enqueue(claim, claim.getUrgency().getPriority());
