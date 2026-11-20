@@ -34,8 +34,9 @@ public class MainProgram {
                 + "\n6: Atención al cliente"
                 + "\n7: Sistema de Login"
                 + "\n8: Agenda de contactos (TP 09)"
-                + "\n9: Agenda de contactos (AVL)"
-                + "\n10: Salir");
+                + "\n9: Agenda de contactos (AVL) (TP 10)"
+                + "\n10: GPS - Ruta más corta (TP 11)"
+                + "\n11: Salir");
 
         String userInput = scanner.nextLine();
 
@@ -60,6 +61,8 @@ public class MainProgram {
         } else if (userInput.equals("9")) {
             exercise = new ContactsAVLExercise(scanner);
         } else if (userInput.equals("10")) {
+            exercise = new GPSExercise(scanner);
+        } else if (userInput.equals("11")) {
             running = false;
             exercise = null;
         } else {
