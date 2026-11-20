@@ -74,6 +74,7 @@ public class CustomerSupportExercise extends Exercise {
         UrgencyLevel urgency = readUrgency();
 
         Claim claim = new Claim(title, description, urgency);
+        // La urgencia define directamente la prioridad numérica de la cola
         queue.enqueue(claim, urgency.getPriority());
 
         System.out.println("Reclamo registrado con éxito.");
@@ -104,7 +105,7 @@ public class CustomerSupportExercise extends Exercise {
         }
 
         try {
-            int selectedIndex = Integer.parseInt(option) - 1;
+            int selectedIndex = Integer.parseInt(option) - 1; // el usuario ve índices desde 1
 
             if (selectedIndex < 0 || selectedIndex >= orderedClaims.size()) {
                 System.out.println("Número inválido. La cola queda sin cambios.");
@@ -157,7 +158,7 @@ public class CustomerSupportExercise extends Exercise {
             String input = readLine("Seleccione urgencia: ").trim();
 
             try {
-                return UrgencyLevel.fromInput(input);
+                return UrgencyLevel.fromInput(input); // acepta número o texto, no distingue mayúsculas
             } catch (IllegalArgumentException e) {
                 System.out.println("Ingresó una urgencia inválida. Intente nuevamente.");
             }
