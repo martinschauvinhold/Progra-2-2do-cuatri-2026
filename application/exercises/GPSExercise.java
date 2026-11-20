@@ -22,23 +22,23 @@ public class GPSExercise extends Exercise {
 
     // Grafo precargado al iniciar, como pide la consigna
     private void loadDefaultMap() {
-        map.addVertex("Once");
-        map.addVertex("Caballito");
-        map.addVertex("Flores");
-        map.addVertex("Palermo");
-        map.addVertex("Belgrano");
-        map.addVertex("Retiro");
+        map.addVertex("Los Santos");
+        map.addVertex("Vinewood");
+        map.addVertex("Vespucci Beach");
+        map.addVertex("Rockford Hills");
+        map.addVertex("Sandy Shores");
+        map.addVertex("Paleto Bay");
 
-        map.addEdge("Once", "Caballito", 8);
-        map.addEdge("Once", "Palermo", 12);
-        map.addEdge("Caballito", "Flores", 6);
-        map.addEdge("Caballito", "Palermo", 5);
-        map.addEdge("Flores", "Caballito", 6);
-        map.addEdge("Flores", "Once", 10);
-        map.addEdge("Palermo", "Belgrano", 7);
-        map.addEdge("Palermo", "Retiro", 9);
-        map.addEdge("Belgrano", "Retiro", 4);
-        map.addEdge("Retiro", "Palermo", 9);
+        map.addEdge("Los Santos", "Vinewood", 8);
+        map.addEdge("Los Santos", "Rockford Hills", 12);
+        map.addEdge("Vinewood", "Vespucci Beach", 6);
+        map.addEdge("Vinewood", "Rockford Hills", 5);
+        map.addEdge("Vespucci Beach", "Vinewood", 6);
+        map.addEdge("Vespucci Beach", "Los Santos", 10);
+        map.addEdge("Rockford Hills", "Sandy Shores", 7);
+        map.addEdge("Rockford Hills", "Paleto Bay", 9);
+        map.addEdge("Sandy Shores", "Paleto Bay", 4);
+        map.addEdge("Paleto Bay", "Rockford Hills", 9);
     }
 
     @Override
